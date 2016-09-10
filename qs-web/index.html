@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Stocks</title>
+	<link rel="icon" type="image/png" href="src/imgs/favicon.ico"/>
+	
+    <link href="src/css/external/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Quick Stocks</a>
+        </div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		 
+      </div>
+    </nav>
+	
+	<div class="container-fluid">
+		<div class="row">	
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-9">				
+				<br><br><br><br>
+				<form>
+					<div class="input-group input-group-lg">
+						<input type="text" class="form-control input-lg" placeholder="Search Stocks" id="tb-stock-search" title="tb-stock-search">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Go!</button>
+						</span>
+					</div>					
+				</form>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-9">				
+				<h3 class="page-header">Your Picks</h3>
+				<div class="row placeholder">
+					<div class="col-md-4">
+						Stock 1
+					</div>	
+					<div class="col-md-4">
+						Stock 2
+					</div>	
+					<div class="col-md-4">
+						Stock 3
+					</div>						
+				</div>
+			</div>
+			<div class="col-md-3">				
+				<h3 class="page-header">Trending</h3>
+				<div class="row placeholder">
+					<div class="col-md-12">
+						 Trending Stock 1 !!
+					</div>	
+					<div class="col-md-12">
+						 Trending Stock 2 !!
+					</div>	
+					<div class="col-md-12">
+						 Trending Stock 3 !!
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">				
+				<h3 class="page-header">Top Picks</h3>
+				<div class="row placeholder">
+					<div class="col-md-3">
+						Top Stock 1
+					</div>	
+					<div class="col-md-3">
+						Top Stock 2
+					</div>	
+					<div class="col-md-3">
+						Top Stock 3
+					</div>	
+					<div class="col-md-3">
+						Top Stock 4
+					</div>						
+				</div>
+			</div>			
+		</div>
+	</div>
+
+
+    <span class="page-footer pull-right"> <i> Powered by </i> <b> Quick Stocks </b> &nbsp;&nbsp;</span>
+	
+	<script src="src/js/external/jquery/jquery-1.12.4.min.js"></script>
+    <script src="src/js/external/bootstrap/bootstrap.min.js"></script>
+	<script src="src/js/external/autobahnjs/autobahn.min.jgz"></script>
+	
+	<script src="src/js/external/uuid_to_date.js"></script>
+	<script src="src/js/cb-event-subscriber.js"></script>
+  </body>
+</html>
