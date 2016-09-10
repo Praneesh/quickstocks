@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quick Stocks</title>
-	<link rel="icon" type="image/png" href="src/imgs/favicon.ico"/>
-	
+	  <link rel="icon" type="image/png" href="src/imgs/favicon.ico"/>
     <link href="src/css/external/bootstrap/bootstrap.min.css" rel="stylesheet">
-
+    <link href="src/css/index.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,16 +27,14 @@
           </button>
           <a class="navbar-brand" href="#">Quick Stocks</a>
         </div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		 
-      </div>
-    </nav>
-	
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+    </div>
+  </nav>
 	<div class="container-fluid">
-		<div class="row">	
+		<div class="row">
 			<div class="col-md-1">
 			</div>
-			<div class="col-md-9">				
+			<div class="col-md-9">
 				<br><br><br><br>
 				<form>
 					<div class="input-group input-group-lg">
@@ -45,72 +42,400 @@
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit">Go!</button>
 						</span>
-					</div>					
+					</div>
 				</form>
 			</div>
 			<div class="col-md-1">
 			</div>
 		</div>
-		
+
 		<div class="row">
-			<div class="col-md-9">				
+      <!-- Column to show user selected stocks -->
+      <div class="col-md-9">
 				<h3 class="page-header">Your Picks</h3>
 				<div class="row placeholder">
 					<div class="col-md-4">
-						Stock 1
-					</div>	
+						<div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Honeywell International Inc. (HON)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>112.0 USD </span>
+                      <span class="widget-stock-deviation-decline">
+                        -1.81 (-1.59%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NYSE - NYSE Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                      H
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-condensed">
+                        <tr>
+                          <td> 52wk Range </td>
+                          <td width="35%"> 55.01 - 78.86 USD</td>
+                        </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Open </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> Prev Close </td>
+                            <td width="25%"> 113.82</td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Market Cap </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> P/E Ratio (ttm)	 </td>
+                            <td width="25%"> 23.17</td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+					</div>
 					<div class="col-md-4">
-						Stock 2
-					</div>	
-					<div class="col-md-4">
-						Stock 3
-					</div>						
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Apple Inc. (AAPL)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>103.13 USD </span>
+                      <span class="widget-stock-deviation-decline">
+                        -2.39 (-2.26%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    A
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-condensed">
+                        <tr>
+                          <td> 52wk Range </td>
+                          <td width="35%"> 55.01 - 78.86 USD</td>
+                        </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Open </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> Prev Close </td>
+                            <td width="25%"> 113.82</td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Market Cap </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> P/E Ratio (ttm)	 </td>
+                            <td width="25%"> 23.17</td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+					</div>
+          <div class="col-md-4">
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Alphabet Inc. (GOOG)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>759.66 USD </span>
+                      <span class="widget-stock-deviation-decline">
+                        -15.66 (-2.02%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    G
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-condensed">
+                        <tr>
+                          <td> 52wk Range </td>
+                          <td width="35%"> 55.01 - 78.86 USD</td>
+                        </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Open </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> Prev Close </td>
+                            <td width="25%"> 113.82</td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table class="table table-condensed">
+                          <tr>
+                            <td> Market Cap </td>
+                            <td width="25%"> 112.86</td>
+                          </tr>
+                          <tr>
+                            <td> P/E Ratio (ttm)	 </td>
+                            <td width="25%"> 23.17</td>
+                          </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-3">				
-				<h3 class="page-header">Trending</h3>
+      <!-- Column to show a few trending stocks -->
+      <div class="col-md-3">
+				<h3 class="page-header">Technology Stocks</h3>
 				<div class="row placeholder">
 					<div class="col-md-12">
-						 Trending Stock 1 !!
-					</div>	
-					<div class="col-md-12">
-						 Trending Stock 2 !!
-					</div>	
-					<div class="col-md-12">
-						 Trending Stock 3 !!
-					</div>					
+            <table class="table table-condensed">
+                <tr>
+                  <td> Intuit Inc. (INTU) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>109.25 USD</td>
+                </tr>
+                <tr>
+                  <td> Microsoft Corp (MSFT) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>56.21 USD</td>
+                </tr>
+                <tr>
+                  <td> Qualcomm Inc. (QCOMM) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>60.52 USD</td>
+                </tr>
+                <tr>
+                  <td> Advanced Micro Devices Inc. (AMD) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>5.90 USD</td>
+                </tr>
+                <tr>
+                  <td> Intel Corp (INTC) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>35.44 USD</td>
+                </tr>
+                <tr>
+                  <td> Texas Instruments (TXN) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>66.67 USD</td>
+                </tr>
+                <tr>
+                  <td> Yahoo Inc (YHOO) </td>
+                  <td width="25%"> <span class="trending-stock-deviation-decline glyphicon glyphicon-triangle-bottom"></span>42.92 USD</td>
+                </tr>
+              </table>
+					</div>
 				</div>
 			</div>
 		</div>
+
+    <!-- Row to show a top stocks being invested in through our website -->
 		<div class="row">
-			<div class="col-md-12">				
+			<div class="col-md-12">
 				<h3 class="page-header">Top Picks</h3>
 				<div class="row placeholder">
 					<div class="col-md-3">
-						Top Stock 1
-					</div>	
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Lexicon Pharmaceuticals, Inc. (LXRX)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>17.85 USD </span>
+                      <span class="widget-stock-deviation-rise">
+                        +2.54 (+16.59%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    L
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+					</div>
 					<div class="col-md-3">
-						Top Stock 2
-					</div>	
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Hemp Inc. (HEMP)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>0.03 USD </span>
+                      <span class="widget-stock-deviation-rise">
+                        +0.00 (+0.34%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    H
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+					</div>
 					<div class="col-md-3">
-						Top Stock 3
-					</div>	
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>J. C. Penney Company, Inc. (JCP)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>9.90 USD </span>
+                      <span class="widget-stock-deviation-rise">
+                        +0.09 (+0.92%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    J
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+					</div>
 					<div class="col-md-3">
-						Top Stock 4
-					</div>						
+            <div class="widget">
+              <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Novavax, Inc. (NVAX)</h3>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="widget-stock-price">
+                      <span>7.79 USD </span>
+                      <span class="widget-stock-deviation-rise">
+                        +0.29 (+3.87%)
+                      </span>
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      NasdaqGS - NasdaqGS Real Time Price.
+                    </div>
+                    <div class="widget-stock-price-subnote">
+                      At close: 4:01 PM EDT
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget-stock-price-logo">
+                    N
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+					</div>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
 
-
-    <span class="page-footer pull-right"> <i> Powered by </i> <b> Quick Stocks </b> &nbsp;&nbsp;</span>
-	
+  <span class="page-footer pull-right"> <i> Powered by </i> <b> Quick Stocks </b> &nbsp;&nbsp;</span>
 	<script src="src/js/external/jquery/jquery-1.12.4.min.js"></script>
-    <script src="src/js/external/bootstrap/bootstrap.min.js"></script>
+  <script src="src/js/external/bootstrap/bootstrap.min.js"></script>
 	<script src="src/js/external/autobahnjs/autobahn.min.jgz"></script>
-	
-	<script src="src/js/external/uuid_to_date.js"></script>
-	<script src="src/js/cb-event-subscriber.js"></script>
   </body>
 </html>
