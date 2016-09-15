@@ -14,14 +14,29 @@ $(document).ready(function(){
       Step 5.3 : If type, Toppicks - update the Top Picks table
     */
 
-    // Step 5.1
-    createUserPicks("HONEYWELL");
+    /*var testStockPriceJSONObject = new Object();
+    testStockPriceJSONObject["HON"]["stockTitle"] = "Honeywell International Inc.";
+    testStockPriceJSONObject["HON"]["stockPrice"]="112.0 USD";
+    testStockPriceJSONObject["HON"]["stockDeviation"]="-1.83 (-1.59%)";
+    testStockPriceJSONObject["HON"]["stockDeviationStatus"]="Decline";
+    testStockPriceJSONObject["HON"]["stockEquity"]="NYSE - NYSE Real Time Price.";
+    testStockPriceJSONObject["HON"]["stockLastUpdateTime"]="At close: 4:01 PM EDT";
+    testStockPriceJSONObject["HON"]["stockDetails"]= new Object();
+    testStockPriceJSONObject["HON"]["stockDetails"]["52wkRange"] = "55.01 - 78.86 USD";
+    testStockPriceJSONObject["HON"]["stockDetails"]["open"] = "112.86";
+    testStockPriceJSONObject["HON"]["stockDetails"]["prevClose"] = "113.82";
+    testStockPriceJSONObject["HON"]["stockDetails"]["marketCap"] = "112.86";
+    testStockPriceJSONObject["HON"]["stockDetails"]["peratioTTE"] = "23.17";
 
-    // Step 5.3
-    //createTopPicksForUser("HONEYWELL");
+    var jsonAsString = JSON.stringify(testStockPriceJSONObject);*/
+    // Step 5.1
+    createUserPicks('HON', testStockPriceJSONObject);
   }
 
-  function createUserPicks(stockElement){
+  /*
+      This creates a User Picks for the user Selected Stocks
+  */
+  function createUserPicks(stockKey, stockObject){
     var elmUserPicksRow = $("#widget-rows-userpicks");
     if(elmUserPicksRow == null){
       console.log("Could not get the User Pick row !");
@@ -32,15 +47,17 @@ $(document).ready(function(){
     */
 
     // Step 1: Create a Widget elements
-    elmStockWidget = $(document.createElement('div'));
+    var elmStockWidget = $(document.createElement('div'));
     elmStockWidget.addClass("widget");
 
     // Step 1.1 : Widget Header
-    elmStockWidgetHeader = $(document.createElement('div'));
+    var elmStockWidgetHeader = $(document.createElement('div'));
     elmStockWidgetHeader.addClass('widget-header');
-    elmStockWidgetHeader.attr('id','widget-header-PRAN');
+    var stockWidgetID = 'widget-header-'+stockKey;
+    elmStockWidgetHeader.attr('id', stockWidgetID);
     elmStockWidgetHeader.append("<i class='icon-bookmark'></i>");
-    elmStockWidgetHeader.append("<h3>Honeywell International Inc. (HON)</h3>");
+    var stockWidgetTitle = "<h3>"+stockObject[stockKey]['stockTitle']+"</h3>"
+    elmStockWidgetHeader.append(stockWidgetTitle);
 
     // Step 1.2 : Widget Body
     elmStockWidgetContent = $(document.createElement('div'));
