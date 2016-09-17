@@ -12,11 +12,11 @@
 
 from autobahn.asyncio.wamp import ApplicationSession, ApplicationRunner
 from asyncio import coroutine, sleep
-
 from qs_backend.queues.stock_delivery_queue import StockDeliveryQueue
 
 
 class PublishStock:
+
     class PublishStockRunner(ApplicationSession):
         @coroutine
         def onJoin(self, details):
@@ -26,13 +26,29 @@ class PublishStock:
             stock_d_queue = stock_d_queue_instance.get_queue()
             # TO DO: Logging, Exception Handling Here !
             while True:
-                con_topic_to_publish = u'com.quickstocks.publisher.b6b7a9887'
-                stock_data_from_queue = stock_d_queue.get()
-                if stock_data_from_queue is None:
-                    continue
-                self.publish(con_topic_to_publish, stock_data_from_queue)
-                stock_d_queue.task_done()
-                yield from sleep(1)
+                try:
+                    con_topic_to_publish = u'com.quickstocks.publisher.b6b7a9887'
+                    stock_data_from_queue = stock_d_queue.get()
+                    if stock_data_from_queue is None:
+                        print("Stock Delivery Queue is empty. Nothing to publish yet.")
+                        continue
+                    try:
+                        self.publish(con_topic_to_publish, stock_data_from_queue)
+                        print("Published Stock Item to Crossbar Publisher Queue {} : {}".
+                              format(con_topic_to_publish,
+                                     stock_data_from_queue['_stock_unit']))
+
+                    except Exception as general_autobahn_exception:
+                        print("Something went wrong while publishing Stock Item to Crossbar Publisher Queue {} : {}. "
+                              "Exception {}. Will be attempted in next scan.".format(con_topic_to_publish,
+                                                                                     stock_data_from_queue['_stock_unit'],
+                                                                                     general_autobahn_exception))
+                    finally:
+                        stock_d_queue.task_done()
+                        yield from sleep(1)
+
+                except Exception as general_exception:
+                    print('Something went wrong while de-queuing Stock Delivery Queue :{} '.format(general_exception))
 
     def start_publishing(self):
         runner = ApplicationRunner(url=u"wss://demo.crossbar.io/ws", realm=u"realm1")

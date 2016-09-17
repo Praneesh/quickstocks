@@ -11,11 +11,11 @@
 
 import threading
 import time
-from qs_backend.workers.worker_fetch_stock import FetchStockWorker
+from qs_backend.workers.worker_fetch_stock import StockWorker
 from qs_backend.publisher.publish_stock import PublishStock
 
 # Start FetchStock Threads
-fetch_test = FetchStockWorker()
+fetch_test = StockWorker()
 stock_key = 'HON'
 ft_stock_thread = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key,))
 #ft_stock_thread.daemon = True
