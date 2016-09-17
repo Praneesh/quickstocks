@@ -4,6 +4,4 @@ qs_backend/.idea/dictionaries/E482845.xml
 qs_backend/.idea/workspace.xml
 qs_backend/.idea/workspace.xml
 qs_backend/.idea/dictionaries/E482845.xml
-qs_backend/qs_backend/logger/__pycache__/__init__.cpython-35.pyc
 *.pyc
-qs_backend/qs_backend/workers/__pycache__/worker_fetch_stock.cpython-35.pyc
