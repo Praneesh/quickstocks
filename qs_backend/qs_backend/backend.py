@@ -16,7 +16,7 @@ from qs_backend.publisher.publish_stock import PublishStock
 
 # Start FetchStock Threads
 fetch_test = StockWorker()
-stock_key = 'HON'
+stock_key = 'GOOG'
 ft_stock_thread = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key,))
 #ft_stock_thread.daemon = True
 ft_stock_thread.start()

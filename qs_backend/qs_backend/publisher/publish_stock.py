@@ -36,12 +36,12 @@ class PublishStock:
                         self.publish(con_topic_to_publish, stock_data_from_queue)
                         print("Published Stock Item to Crossbar Publisher Queue {} : {}".
                               format(con_topic_to_publish,
-                                     stock_data_from_queue['_stock_unit']))
+                                     stock_data_from_queue))
 
                     except Exception as general_autobahn_exception:
                         print("Something went wrong while publishing Stock Item to Crossbar Publisher Queue {} : {}. "
                               "Exception {}. Will be attempted in next scan.".format(con_topic_to_publish,
-                                                                                     stock_data_from_queue['_stock_unit'],
+                                                                                     stock_data_from_queue,
                                                                                      general_autobahn_exception))
                     finally:
                         stock_d_queue.task_done()

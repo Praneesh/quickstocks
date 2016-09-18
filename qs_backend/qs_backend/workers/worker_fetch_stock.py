@@ -16,6 +16,7 @@ from queue import Queue
 from qs_backend.models.stock_model import StockModel
 from qs_backend.queues.stock_delivery_queue import StockDeliveryQueue
 from qs_backend.logger.default_logger import QSDefaultLogger
+from qs_backend.decorators.stock_publish_payload_to_dict import StockPublishPayloadToDict
 
 
 class StockWorker:
@@ -23,6 +24,9 @@ class StockWorker:
         # Get the logger instance !!
         qs_logger_instance = QSDefaultLogger()
         self.qs_logger = qs_logger_instance.get_logger(name=__name__)
+
+        # Get the decorator instance !
+        self.payload_to_publish_dict = StockPublishPayloadToDict()
 
     def fetch_stock_price(self, stock_unit_key):
         # Step 1: Make HTTP Call to fetch the Stock Details
@@ -37,16 +41,17 @@ class StockWorker:
         st_model.stock_equity = 'NYSE - NYSE Real Time Price.'
         st_model.stock_last_update_time = 'At close: 4:01 PM EDT'
 
-        self.push_stock_to_delivery_queue(st_model)
+        st_model_to_publish = self.payload_to_publish_dict.get_stock_payload_to_publish(st_model)
+        self.push_stock_to_delivery_queue(st_model_to_publish, stock_unit_key)
 
-    def push_stock_to_delivery_queue(self, stock_model):
+    def push_stock_to_delivery_queue(self, stock_model, stock_key):
         # Step 3 : Push this packet into a common queue
         stock_d_queue_instance = StockDeliveryQueue()
         stock_d_queue = stock_d_queue_instance.get_queue()
         self.qs_logger.info(msg='Got instance of Stock Delivery Queue')
         try:
-            stock_d_queue.put_nowait(stock_model.__dict__)
-            self.qs_logger.debug(msg='Added Stock Item into Stock Delivery Queue : {}'.format(stock_model.stock_unit))
+            stock_d_queue.put_nowait(stock_model)
+            self.qs_logger.debug(msg='Added Stock Item into Stock Delivery Queue : {}'.format(stock_model))
         except Queue.full as queue_full_exception:
             self.qs_logger.exception(msg='Queue Full Exception {}'.format(queue_full_exception))
             print("Queue Full Exception {}".format(queue_full_exception))
@@ -54,5 +59,5 @@ class StockWorker:
             self.qs_logger.exception(msg="General Exception {}".format(general_exception))
 
 if __name__ == '__main__':
-    fetch_test = FetchStockWorker()
+    fetch_test = StockWorker()
     fetch_test.fetch_stock_price('H')
