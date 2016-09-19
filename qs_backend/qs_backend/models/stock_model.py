@@ -18,6 +18,12 @@ class StockModel(object):
         self._stock_equity = None
         self._stock_last_update_time = None
 
+        self._52wkrange = None
+        self._open = None
+        self._prev_close = None
+        self._market_cap = None
+        self._peratio_tte = None
+
     @property
     def stock_unit(self):
         return self._stock_unit
@@ -65,3 +71,43 @@ class StockModel(object):
     @stock_last_update_time.setter
     def stock_last_update_time(self, value):
         self._stock_last_update_time = value
+
+    @property
+    def stock_52wkrange(self):
+        return self._52wkRange
+
+    @stock_52wkrange.setter
+    def stock_52wkrange(self, value):
+        self._52wkRange = value
+
+    @property
+    def stock_open(self):
+        return self._open
+
+    @stock_open.setter
+    def stock_open(self, value):
+        self._open = value
+
+    @property
+    def stock_prev_close(self):
+        return self._prev_close
+
+    @stock_prev_close.setter
+    def stock_prev_close(self, value):
+        self._prev_close = value
+
+    @property
+    def stock_market_cap(self):
+        return self._market_cap
+
+    @stock_market_cap.setter
+    def stock_market_cap(self, value):
+        self._market_cap = value
+
+    @property
+    def stock_peratio_tte(self):
+        return self._peratio_tte
+
+    @stock_peratio_tte.setter
+    def stock_peratio_tte(self, value):
+        self._peratio_tte = value

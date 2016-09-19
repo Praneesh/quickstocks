@@ -35,8 +35,15 @@ class StockPublishPayloadToDict:
                 stock_to_publish_dict['stock_unit'] = stock_payload.stock_unit
                 stock_to_publish_dict['stock_price'] = stock_payload.stock_price
                 stock_to_publish_dict['stock_deviation'] = stock_payload.stock_deviation
-                stock_to_publish_dict['stock_deviation_status'] = stock_payload.stock_equity
-                stock_to_publish_dict['stock_deviation_status'] = stock_payload.stock_equity
+                stock_to_publish_dict['stock_deviation_status'] = stock_payload.stock_deviation_status
+                stock_to_publish_dict['stock_equity'] = stock_payload.stock_equity
+                stock_to_publish_dict['stock_last_update_time'] = stock_payload.stock_last_update_time
+
+                stock_to_publish_dict['stock_52wkrange'] = stock_payload.stock_52wkrange
+                stock_to_publish_dict['stock_open'] = stock_payload.stock_open
+                stock_to_publish_dict['stock_market_cap'] = stock_payload.stock_market_cap
+                stock_to_publish_dict['stock_prev_close'] = stock_payload.stock_prev_close
+                stock_to_publish_dict['stock_peratio_tte'] = stock_payload.stock_peratio_tte
 
                 stocks_to_publish_dict[stock_temp_user_index] = stock_to_publish_dict
                 stock_temp_user_index += 1
