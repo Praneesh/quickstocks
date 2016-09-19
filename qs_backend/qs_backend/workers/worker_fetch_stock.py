@@ -41,7 +41,6 @@ class StockWorker:
         if share_item.get_open() is None:
             return
 
-        print('Opening share for {} : {}'.format(stock_unit_key, share_item.get_open()))
         share_item_dict = share_item.data_set
 
         st_model = StockModel()
