@@ -45,6 +45,7 @@ class StockWorker:
 
         st_model = StockModel()
         st_model.stock_unit = stock_unit_key
+        st_model.stock_title = share_item_dict['Name']
 
         # Share Price + Unit of Currency
         st_model.stock_price = share_item.get_price() + " " +share_item_dict['Currency']

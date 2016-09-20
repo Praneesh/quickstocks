@@ -33,6 +33,7 @@ class StockPublishPayloadToDict:
                 stock_to_publish_dict = dict()
                 stock_to_publish_dict['publish_queue'] = self.get_user_publish_queue(user_id=user)
                 stock_to_publish_dict['stock_unit'] = stock_payload.stock_unit
+                stock_to_publish_dict['stock_title'] = stock_payload.stock_title
                 stock_to_publish_dict['stock_price'] = stock_payload.stock_price
                 stock_to_publish_dict['stock_deviation'] = stock_payload.stock_deviation
                 stock_to_publish_dict['stock_deviation_status'] = stock_payload.stock_deviation_status

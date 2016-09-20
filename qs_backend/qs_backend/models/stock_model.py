@@ -12,6 +12,7 @@ class StockModel(object):
 
     def __init__(self):
         self._stock_unit = None
+        self._stock_title = None
         self._stock_price = None
         self._stock_deviation = None
         self._stock_deviation_status = None
@@ -31,6 +32,15 @@ class StockModel(object):
     @stock_unit.setter
     def stock_unit(self, value):
         self._stock_unit = value
+
+
+    @property
+    def stock_title(self):
+        return self._stock_title
+
+    @stock_title.setter
+    def stock_title(self, value):
+        self._stock_title = value
 
     @property
     def stock_price(self):

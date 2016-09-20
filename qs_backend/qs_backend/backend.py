@@ -16,10 +16,15 @@ from qs_backend.publisher.publish_stock import PublishStock
 
 # Start FetchStock Threads
 fetch_test = StockWorker()
-stock_key = 'INTU'
+stock_key = 'HON'
 ft_stock_thread = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key,))
 #ft_stock_thread.daemon = True
 ft_stock_thread.start()
+
+stock_key_1 = 'AAPL'
+ft_stock_thread_1 = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key_1,))
+#ft_stock_thread.daemon = True
+ft_stock_thread_1.start()
 
 time.sleep(5)
 

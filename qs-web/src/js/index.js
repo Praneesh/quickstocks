@@ -14,23 +14,24 @@ $(document).ready(function(){
       Step 5.3 : If type, Toppicks - update the Top Picks table
     */
 
-    /*var testStockPriceJSONObject = new Object();
-    testStockPriceJSONObject["HON"]["stockTitle"] = "Honeywell International Inc.";
-    testStockPriceJSONObject["HON"]["stockPrice"]="112.0 USD";
-    testStockPriceJSONObject["HON"]["stockDeviation"]="-1.83 (-1.59%)";
-    testStockPriceJSONObject["HON"]["stockDeviationStatus"]="Decline";
-    testStockPriceJSONObject["HON"]["stockEquity"]="NYSE - NYSE Real Time Price.";
-    testStockPriceJSONObject["HON"]["stockLastUpdateTime"]="At close: 4:01 PM EDT";
-    testStockPriceJSONObject["HON"]["stockDetails"]= new Object();
-    testStockPriceJSONObject["HON"]["stockDetails"]["52wkRange"] = "55.01 - 78.86 USD";
-    testStockPriceJSONObject["HON"]["stockDetails"]["open"] = "112.86";
-    testStockPriceJSONObject["HON"]["stockDetails"]["prevClose"] = "113.82";
-    testStockPriceJSONObject["HON"]["stockDetails"]["marketCap"] = "112.86";
-    testStockPriceJSONObject["HON"]["stockDetails"]["peratioTTE"] = "23.17";
+    console.log("Ok, Autobahn loaded", autobahn.version);
+	  var connection = new autobahn.Connection({url: "wss://demo.crossbar.io/ws",
+     											  realm: "realm1"
+                          									});
 
-    var jsonAsString = JSON.stringify(testStockPriceJSONObject);*/
-    // Step 5.1
-    createUserPicks('HON', testStockPriceJSONObject);
+     connection.onopen = function (session, details) {
+      	  function onStockUpdate(args) {
+                receivedStockUpdate = args[0];
+                console.log("StockUpdate:", receivedStockUpdate);
+                createUserPicks(receivedStockUpdate['stock_unit'], receivedStockUpdate);
+      	  }
+      	  session.subscribe("com.quickstocks.publisher.praneesh", onStockUpdate);
+    	};
+
+    	connection.onclose = function (reason, details) {
+    	   // handle connection lost
+    	}
+    	connection.open();
   }
 
   /*
@@ -53,71 +54,75 @@ $(document).ready(function(){
     // Step 1.1 : Widget Header
     var elmStockWidgetHeader = $(document.createElement('div'));
     elmStockWidgetHeader.addClass('widget-header');
+
     var stockWidgetID = 'widget-header-'+stockKey;
     elmStockWidgetHeader.attr('id', stockWidgetID);
     elmStockWidgetHeader.append("<i class='icon-bookmark'></i>");
-    var stockWidgetTitle = "<h3>"+stockObject[stockKey]['stockTitle']+"</h3>"
+
+    var stockWidgetTitle = "<h3>" + stockObject['stock_title'] + "</h3>" ;
     elmStockWidgetHeader.append(stockWidgetTitle);
 
     // Step 1.2 : Widget Body
-    elmStockWidgetContent = $(document.createElement('div'));
+    var elmStockWidgetContent = $(document.createElement('div'));
     elmStockWidgetContent.addClass('widget-content');
 
-    elmStockWidgetContentRow = $(document.createElement('div'));
+    var elmStockWidgetContentRow = $(document.createElement('div'));
     elmStockWidgetContentRow.addClass('row');
 
     //Step 1.3 : Create Stock Price Display DOM
-    elmStockWidgetPriceColumn = $(document.createElement('div'));
+    var elmStockWidgetPriceColumn = $(document.createElement('div'));
     elmStockWidgetPriceColumn.addClass('col-md-10');
 
     // Stock Price
-    elmStockWidgetPriceColumn.append(getStockWidgetPrice());
+    elmStockWidgetPriceColumn.append(getStockWidgetPrice(stockObject));
 
     // Sub Notes 1 - Equity
-    elmStockWidgetSubNote_1 = $(document.createElement('div'));
+    var elmStockWidgetSubNote_1 = $(document.createElement('div'));
     elmStockWidgetSubNote_1.addClass('widget-stock-price-subnote');
-    elmStockWidgetSubNote_1.attr('id','widget-stock-price-sn-equity-PRAN');
-    elmStockWidgetSubNote_1.append('NYSE - NYSE Real Time Price.');
+    var elmStockWidgetSubNote_1_id = 'widget-stock-price-sn-equity-' + stockKey;
+    elmStockWidgetSubNote_1.attr('id', elmStockWidgetSubNote_1_id);
+    elmStockWidgetSubNote_1.append(stockObject['stock_equity']);
     elmStockWidgetPriceColumn.append(elmStockWidgetSubNote_1);
 
     // Sub Notes 2 - Date Time
-    elmStockWidgetSubNote_2 = $(document.createElement('div'));
+    var elmStockWidgetSubNote_2 = $(document.createElement('div'));
     elmStockWidgetSubNote_2.addClass('widget-stock-price-subnote');
-    elmStockWidgetSubNote_2.attr('id','widget-stock-price-sn-time-PRAN');
-    elmStockWidgetSubNote_2.append('At close: 4:01 PM EDT');
+    var elmStockWidgetSubNote_2_id = 'widget-stock-price-sn-time-' + stockKey;
+    elmStockWidgetSubNote_2.attr('id', elmStockWidgetSubNote_2_id);
+    elmStockWidgetSubNote_2.append(stockObject['stock_last_update_time']);
     elmStockWidgetPriceColumn.append(elmStockWidgetSubNote_2);
-
     elmStockWidgetContentRow.append(elmStockWidgetPriceColumn);
 
     //Step 1.3.2 : Create Stock Logo
-    elmStockWidgetLogoColumn = $(document.createElement('div'));
+    var elmStockWidgetLogoColumn = $(document.createElement('div'));
     elmStockWidgetLogoColumn.addClass('col-md-2');
-    elmStockWidgetLogoColumn.append(getStockValueLogo());
+    elmStockWidgetLogoColumn.append(getStockValueLogo(stockKey));
     elmStockWidgetContentRow.append(elmStockWidgetLogoColumn);
     elmStockWidgetContent.append(elmStockWidgetContentRow);
 
     // ROW 2 for more Stock Week Range !!
-    elmStockRangeRow = $(document.createElement('div'));
+    var elmStockRangeRow = $(document.createElement('div'));
     elmStockRangeRow.addClass('row');
-    elmStockRangeRowColumn = $(document.createElement('div'));
+
+    var elmStockRangeRowColumn = $(document.createElement('div'));
     elmStockRangeRowColumn.addClass('col-md-12');
-    elmStockRangeRowColumn.append(getStockRangeTable());
+    elmStockRangeRowColumn.append(getStockRangeTable(stockObject));
     elmStockRangeRow.append(elmStockRangeRowColumn);
     elmStockWidgetContent.append(elmStockRangeRow);
 
     // Row 3 for Stock Properties...!
     // ROW 3 Colum 1 for more Stock Properties !!
-    elmStockPropRow = $(document.createElement('div'));
+    var elmStockPropRow = $(document.createElement('div'));
     elmStockPropRow.addClass('row');
-    elmStockPropRowColumn = $(document.createElement('div'));
+    var elmStockPropRowColumn = $(document.createElement('div'));
     elmStockPropRowColumn.addClass('col-md-6');
-    elmStockPropRowColumn.append(getStockParametersTableColumn_One());
+    elmStockPropRowColumn.append(getStockParametersTableColumn_One(stockObject));
     elmStockPropRow.append(elmStockPropRowColumn);
 
     // ROW 3 Colum 2 for more Stock Properties !!
-    elmStockPropRowColumnTwo = $(document.createElement('div'));
+    var elmStockPropRowColumnTwo = $(document.createElement('div'));
     elmStockPropRowColumnTwo.addClass('col-md-6');
-    elmStockPropRowColumnTwo.append(getStockParametersTableColumn_Two());
+    elmStockPropRowColumnTwo.append(getStockParametersTableColumn_Two(stockObject));
     elmStockPropRow.append(elmStockPropRowColumnTwo);
 
     elmStockWidgetContent.append(elmStockPropRow);
@@ -128,7 +133,7 @@ $(document).ready(function(){
     elmStockWidget.append(elmStockWidgetContent);
 
     // Create the Column Element
-    elmStockWidgetColumn = $(document.createElement('div'));
+    var elmStockWidgetColumn = $(document.createElement('div'));
     elmStockWidgetColumn.addClass("col-md-6");  //Bootstrap Class - Explore better ways of doing this
     elmStockWidgetColumn.append(elmStockWidget);
 
@@ -182,42 +187,51 @@ $(document).ready(function(){
       elmUserTopPicksRow.append(elmStockWidgetColumn);
   }
 
-  function getStockWidgetPrice(){
-    elmStockWidgetPrice = $(document.createElement('div'));
+  function getStockWidgetPrice(stockObject){
+    var elmStockWidgetPrice = $(document.createElement('div'));
     elmStockWidgetPrice.addClass('widget-stock-price');
-    elmStockWidgetPrice.attr('id','widget-stock-price-PRAN');
-    elmStockWidgetPrice.append("<span>112.0 USD </span>");
+    var elmStockWidgetPrice_id = 'widget-stock-price-' + stockObject['stock_unit'];
+    elmStockWidgetPrice.attr('id',elmStockWidgetPrice_id);
+    elmStockWidgetPrice.append("<span>" + stockObject['stock_price'] +"</span>");
 
-    elmStockWidgetStats = $(document.createElement('span'));
-    elmStockWidgetStats.addClass('widget-stock-deviation-decline');
-    elmStockWidgetStats.attr('id','widget-stock-status-PRAN');
-    elmStockWidgetStats.append('-1.83 (-1.59%)');
+    var elmStockWidgetStats = $(document.createElement('span'));
+    if(stockObject['stock_deviation_status'] == 'Decline'){
+      elmStockWidgetStats.addClass('widget-stock-deviation-decline');
+    }else{
+      elmStockWidgetStats.addClass('widget-stock-deviation-rise');
+    }
+
+    var elmStockWidgetStats_id = 'widget-stock-status-' + stockObject['stock_unit'];
+    elmStockWidgetStats.attr('id',elmStockWidgetStats_id);
+    elmStockWidgetStats.append("<span> "+ stockObject['stock_deviation'] +" </span>");
     elmStockWidgetPrice.append(elmStockWidgetStats);
 
     return elmStockWidgetPrice;
   }
 
-  function getStockValueLogo(){
+  function getStockValueLogo(stockKey){
     elmStockWidgetLogo = $(document.createElement('div'));
     elmStockWidgetLogo.addClass('widget-stock-price-logo');
-    elmStockWidgetLogo.attr('id','widget-stock-price-logo-PRAN');
-    elmStockWidgetLogo.append('P');
+    elmStockWidgetLogo_id = 'widget-stock-price-logo-' + stockKey;
+    elmStockWidgetLogo.attr('id',elmStockWidgetLogo_id);
+    elmStockWidgetLogo.append(stockKey[0]);
     return elmStockWidgetLogo;
   }
 
-  function getStockRangeTable(){
+  function getStockRangeTable(stockObject){
     // 52 Wk Row Table
-    elmStockRangeTable = $(document.createElement('table'));
+    var elmStockRangeTable = $(document.createElement('table'));
     elmStockRangeTable.addClass('table table-condensed');
 
-    elmStockRangeTableRow = $(document.createElement('tr'));
-    elmStockRangeTitleTableColumn = $(document.createElement('td'));
+    var elmStockRangeTableRow = $(document.createElement('tr'));
+    var elmStockRangeTitleTableColumn = $(document.createElement('td'));
     elmStockRangeTitleTableColumn.append('52wk Range');
 
-    elmStockRangeValueTableColumn = $(document.createElement('td'));
+    var elmStockRangeValueTableColumn = $(document.createElement('td'));
     elmStockRangeValueTableColumn.attr('width','35%');
-    elmStockRangeValueTableColumn.attr('id','widget-tbl-52wk-PRAN')
-    elmStockRangeValueTableColumn.append('55.01 - 78.86 USD');
+    var elmStockRangeValueTableColumn_id = 'widget-tbl-52wk-' + stockObject['stock_unit'];
+    elmStockRangeValueTableColumn.attr('id',elmStockRangeValueTableColumn_id)
+    elmStockRangeValueTableColumn.append(stockObject['stock_52wkrange']);
 
     elmStockRangeTableRow.append(elmStockRangeTitleTableColumn);
     elmStockRangeTableRow.append(elmStockRangeValueTableColumn);
@@ -226,70 +240,74 @@ $(document).ready(function(){
     return elmStockRangeTable;
   }
 
-  function getStockParametersTableColumn_One(){
+  function getStockParametersTableColumn_One(stockObject){
     // Rest of the parameters
-    elmStockParametersTable = $(document.createElement('table'));
+    var elmStockParametersTable = $(document.createElement('table'));
     elmStockParametersTable.addClass('table table-condensed');
 
-    // Col 1 Row 1
-    elmStockPropOpenTableRow = $(document.createElement('tr'));
-    elmStockPropOpenTitleTableColumn = $(document.createElement('td'));
+    // Col 1 Row 1    :: StockOpen
+    var elmStockPropOpenTableRow = $(document.createElement('tr'));
+    var elmStockPropOpenTitleTableColumn = $(document.createElement('td'));
     elmStockPropOpenTitleTableColumn.append('Open');
     elmStockPropOpenTableRow.append(elmStockPropOpenTitleTableColumn);
 
-    elmStockPropOpenValueTableColumn = $(document.createElement('td'));
+    var elmStockPropOpenValueTableColumn = $(document.createElement('td'));
     elmStockPropOpenValueTableColumn.attr('width','25%');
-    elmStockPropOpenValueTableColumn.attr('id','widget-tbl-open-PRAN');
-    elmStockPropOpenValueTableColumn.append('112.86');
+    var elmStockPropOpenValueTableColumn_id = 'widget-tbl-open-' + stockObject['stock_unit'];
+    elmStockPropOpenValueTableColumn.attr('id',elmStockPropOpenValueTableColumn_id);
+    elmStockPropOpenValueTableColumn.append(stockObject['stock_open']);
     elmStockPropOpenTableRow.append(elmStockPropOpenValueTableColumn);
     elmStockParametersTable.append(elmStockPropOpenTableRow)
 
-    // Col 1 Row 2
-    elmStockPropPrevCloseTableRow = $(document.createElement('tr'));
-    elmStockPropPrevCloseTitleTableColumn = $(document.createElement('td'));
+    // Col 1 Row 2    :: StockPrevClose
+    var elmStockPropPrevCloseTableRow = $(document.createElement('tr'));
+    var elmStockPropPrevCloseTitleTableColumn = $(document.createElement('td'));
     elmStockPropPrevCloseTitleTableColumn.append('Prev Close');
     elmStockPropPrevCloseTableRow.append(elmStockPropPrevCloseTitleTableColumn);
 
-    elmStockPropPrevCloseValueTableColumn = $(document.createElement('td'));
+    var elmStockPropPrevCloseValueTableColumn = $(document.createElement('td'));
     elmStockPropPrevCloseValueTableColumn.attr('width','25%');
-    elmStockPropPrevCloseValueTableColumn.attr('id','widget-tbl-prevclose-PRAN');
-    elmStockPropPrevCloseValueTableColumn.append('113.82');
+    var elmStockPropPrevCloseValueTableColumn_id = 'widget-tbl-prevclose-' + stockObject['stock_unit'];
+    elmStockPropPrevCloseValueTableColumn.attr('id',elmStockPropPrevCloseValueTableColumn_id);
+    elmStockPropPrevCloseValueTableColumn.append(stockObject['stock_prev_close']);
     elmStockPropPrevCloseTableRow.append(elmStockPropPrevCloseValueTableColumn);
     elmStockParametersTable.append(elmStockPropPrevCloseTableRow)
-    elmStockPropRowColumn.append(elmStockParametersTable);
+    //elmStockPropRowColumn.append(elmStockParametersTable);
 
     return elmStockParametersTable;
   }
 
-  function getStockParametersTableColumn_Two(){
+  function getStockParametersTableColumn_Two(stockObject){
 
     // Rest of the parameters
-    elmStockParametersTable = $(document.createElement('table'));
+    var elmStockParametersTable = $(document.createElement('table'));
     elmStockParametersTable.addClass('table table-condensed');
 
     // Col 1 Row 1
-    elmStockPropOpenTableRow = $(document.createElement('tr'));
-    elmStockPropOpenTitleTableColumn = $(document.createElement('td'));
+    var elmStockPropOpenTableRow = $(document.createElement('tr'));
+    var elmStockPropOpenTitleTableColumn = $(document.createElement('td'));
     elmStockPropOpenTitleTableColumn.append('Market Cap');
     elmStockPropOpenTableRow.append(elmStockPropOpenTitleTableColumn);
 
-    elmStockPropOpenValueTableColumn = $(document.createElement('td'));
+    var elmStockPropOpenValueTableColumn = $(document.createElement('td'));
     elmStockPropOpenValueTableColumn.attr('width','25%');
-    elmStockPropOpenValueTableColumn.attr('id','widget-tbl-mcap-PRAN');
-    elmStockPropOpenValueTableColumn.append('112.86');
+    var elmStockPropOpenValueTableColumn_id = 'widget-tbl-mcap-' + stockObject['stock_unit'];
+    elmStockPropOpenValueTableColumn.attr('id',elmStockPropOpenValueTableColumn_id);
+    elmStockPropOpenValueTableColumn.append(stockObject['stock_market_cap']);
     elmStockPropOpenTableRow.append(elmStockPropOpenValueTableColumn);
     elmStockParametersTable.append(elmStockPropOpenTableRow)
 
     // Col 1 Row 2
-    elmStockPropPrevCloseTableRow = $(document.createElement('tr'));
-    elmStockPropPrevCloseTitleTableColumn = $(document.createElement('td'));
+    var elmStockPropPrevCloseTableRow = $(document.createElement('tr'));
+    var elmStockPropPrevCloseTitleTableColumn = $(document.createElement('td'));
     elmStockPropPrevCloseTitleTableColumn.append('P/E Ratio (ttm)');
     elmStockPropPrevCloseTableRow.append(elmStockPropPrevCloseTitleTableColumn);
 
-    elmStockPropPrevCloseValueTableColumn = $(document.createElement('td'));
+    var elmStockPropPrevCloseValueTableColumn = $(document.createElement('td'));
     elmStockPropPrevCloseValueTableColumn.attr('width','25%');
-    elmStockPropPrevCloseValueTableColumn.attr('id','widget-tbl-ttm-PRAN');
-    elmStockPropPrevCloseValueTableColumn.append('23.17');
+    var elmStockPropPrevCloseValueTableColumn_id = 'widget-tbl-ttm-' + stockObject['stock_unit'];
+    elmStockPropPrevCloseValueTableColumn.attr('id', elmStockPropPrevCloseValueTableColumn_id);
+    elmStockPropPrevCloseValueTableColumn.append(stockObject['stock_peratio_tte']);
     elmStockPropPrevCloseTableRow.append(elmStockPropPrevCloseValueTableColumn);
     elmStockParametersTable.append(elmStockPropPrevCloseTableRow)
 
