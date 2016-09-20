@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
   initialize();
+  var listOfDisplayedStocks = [];
 
   function initialize(){
     /*
@@ -23,7 +24,12 @@ $(document).ready(function(){
       	  function onStockUpdate(args) {
                 receivedStockUpdate = args[0];
                 console.log("StockUpdate:", receivedStockUpdate);
-                createUserPicks(receivedStockUpdate['stock_unit'], receivedStockUpdate);
+                receivedStockKey = receivedStockUpdate['stock_unit'];
+                if(!(listOfDisplayedStocks.includes(receivedStockKey))){
+                  createUserPicks(receivedStockKey, receivedStockUpdate);
+                }else{
+                  updateUserPicks(receivedStockKey, receivedStockUpdate);
+                }
       	  }
       	  session.subscribe("com.quickstocks.publisher.praneesh", onStockUpdate);
     	};
@@ -38,6 +44,9 @@ $(document).ready(function(){
       This creates a User Picks for the user Selected Stocks
   */
   function createUserPicks(stockKey, stockObject){
+    // Update the List with the DIsplayed Element
+    listOfDisplayedStocks.push(stockKey);
+
     var elmUserPicksRow = $("#widget-rows-userpicks");
     if(elmUserPicksRow == null){
       console.log("Could not get the User Pick row !");
@@ -141,6 +150,15 @@ $(document).ready(function(){
     elmUserPicksRow.append(elmStockWidgetColumn);
   }
 
+  function updateUserPicks(stockKey, stockObject){
+    // Update Stock Price
+    var elemStockPriceElement_id = "#widget-stock-price-"+stockKey;
+    $(elemStockPriceElement_id)[0] = getStockWidgetPrice(stockObject);
+
+    // Update Stock Price
+    var elemStockSubNoteCloseTime_id = "#widget-stock-price-sn-time-"+stockKey;
+    $(elemStockSubNoteCloseTime_id)[0].innerHTML = stockObject["stock_last_update_time"];
+  }
 
   function createTopPicksForUser(topPickStockElement){
       var elmUserTopPicksRow = $("#widget-rows-toppicks");
