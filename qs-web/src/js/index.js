@@ -14,13 +14,30 @@ $(document).ready(function(){
       Step 5.2 : If type, Trends - update the Trending table
       Step 5.3 : If type, Toppicks - update the Top Picks table
     */
+    /*Typeahead Scripts*/
 
-    console.log("Ok, Autobahn loaded", autobahn.version);
-	  var connection = new autobahn.Connection({url: "wss://demo.crossbar.io/ws",
-     											  realm: "realm1"
-                          									});
 
-     connection.onopen = function (session, details) {
+    // Register for Google Cloud Messaging Notifications
+    if ('serviceWorker' in navigator) {
+      console.log('Service Worker is supported');
+      navigator.serviceWorker.register('pushserviceworker.js').then(function(reg){
+            console.log('Registered Service Worker', reg);
+            reg.pushManager.subscribe({
+                        userVisibleOnly: true //This tells the browser that a notification will always be shown when a push message is received. Currently it’s mandatory to show a notification.
+                      }).then(function(sub) {
+                        console.log('endpoint:', sub.endpoint);
+                      });
+                  }).catch(function(err) {
+                        console.log('Something went wrong while registering Service Worker', err);
+                  });
+      }
+      // Register for WAMP + Crossbar Events
+      console.log("Ok, Autobahn loaded", autobahn.version);
+	    var connection = new autobahn.Connection({url: "wss://demo.crossbar.io/ws",
+     										  realm: "realm1"
+     							});
+
+      connection.onopen = function (session, details) {
       	  function onStockUpdate(args) {
                 receivedStockUpdate = args[0];
                 console.log("StockUpdate:", receivedStockUpdate);
@@ -35,7 +52,7 @@ $(document).ready(function(){
     	};
 
     	connection.onclose = function (reason, details) {
-    	   // handle connection lost
+    	   console.log("Connection lost to Crossbar Server");
     	}
     	connection.open();
   }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quick Stocks</title>
+    <link rel="manifest" href="pushservicemanifest.json">
 	  <link rel="icon" type="image/png" href="src/imgs/favicon.ico"/>
     <link href="src/css/external/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="src/css/index.css" rel="stylesheet">
@@ -39,6 +40,9 @@
 				<form>
 					<div class="input-group input-group-lg">
 						<input type="text" class="form-control input-lg" placeholder="Search Stocks" id="tb-stock-search" title="tb-stock-search">
+            <div class="tt-menu tt-empty" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;">
+                <div class="tt-dataset tt-dataset-top-stocks"></div>
+            </div>
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="submit">Go!</button>
 						</span>
@@ -209,6 +213,7 @@
   <span class="page-footer pull-right"> <i> Powered by </i> <b> Quick Stocks </b> &nbsp;&nbsp;</span>
 	<script src="src/js/external/jquery/jquery-1.12.4.min.js"></script>
   <script src="src/js/external/bootstrap/bootstrap.min.js"></script>
+  <script src="src/js/external/typeahead/typeahead.js"></script>
 	<script src="src/js/external/autobahnjs/autobahn.min.jgz"></script>
   <script src="src/js/index.js"></script>
   </body>
