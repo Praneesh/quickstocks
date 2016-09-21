@@ -16,6 +16,17 @@ $(document).ready(function(){
     */
     /*Typeahead Scripts*/
 
+    var stockPicks = [
+                          "Honeywell International Inc.",
+                          "Apple Inc.",
+                          "Alphabet Inc.",
+                          "Microsoft Cooperation",
+                          "Facebook Inc.",
+                          "Intel Corporation",
+                          "Oracle Corporation"
+                      ];
+    $('#search-stocks').typeahead({source:stockPicks, items:4});
+
 
     // Register for Google Cloud Messaging Notifications
     if ('serviceWorker' in navigator) {
@@ -57,6 +68,21 @@ $(document).ready(function(){
     	connection.open();
   }
 
+  $('#searchBtn').on('click', function(event) {
+      onStockOptionSearchUpdate();
+  });
+
+  $('#search-stocks').on('keypress', function(event) {
+        var key = event.which;
+        if(key == 13)  // the enter key code
+        {
+          onStockOptionSearchUpdate();
+        }
+  });
+
+  function onStockOptionSearchUpdate(){
+    alert($('#search-stocks').val());
+  }
   /*
       This creates a User Picks for the user Selected Stocks
   */
@@ -348,4 +374,5 @@ $(document).ready(function(){
 
     return elmStockParametersTable;
   }
+
 });
