@@ -23,7 +23,11 @@ $(document).ready(function(){
                           "Microsoft Corporation",
                           "Facebook Inc.",
                           "Intel Corporation",
-                          "Oracle Corporation"
+                          "Oracle Corporation",
+                          "Qualcomm Inc.",
+                          "Advanced Micro Devices Inc.",
+                          "Texas Instruments",
+                          "Intuit Inc."
                       ];
     $('#search-stocks').typeahead({source:stockPicks, items:4});
 

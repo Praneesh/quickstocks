@@ -15,6 +15,10 @@
 	color: #BBB;
 	line-height: 18px;
 }
+.special-note:{
+	font-weight: bold;
+	font-color: #EE3124;
+}
 .widget
  {
 	position: relative;
