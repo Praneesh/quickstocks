@@ -1,1 +1,25 @@
-[{"userStocks": [{"key": "HON"}, {"key": "AAPL"}, {"key": "YHOO"}], "userID": "praneesh"}, {"userStocks": [{"key": "INTU"}, {"key": "GOOG"}, {"key": "YHOO"}], "userID": "restofworld"}]
+[{
+	"userStocks": [{
+		"key": "HON"
+	}, {
+		"key": "AAPL"
+	}, {
+		"key": "YHOO"
+	}, {
+		"key": "HON"
+	}, {
+		"key": "INTC"
+	}, {
+		"key": "INTC"
+	}],
+	"userID": "praneesh"
+}, {
+	"userStocks": [{
+		"key": "INTU"
+	}, {
+		"key": "GOOG"
+	}, {
+		"key": "YHOO"
+	}],
+	"userID": "restofworld"
+}]

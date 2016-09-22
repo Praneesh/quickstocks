@@ -9,10 +9,14 @@
 
 from flask import Flask,jsonify
 from flask_swagger import swagger
-
+from flask_cors import CORS, cross_origin
+from qs_backend.exceptions.json_exception_handler import JSONExceptionHandler
+from qs_backend.controllers.userstock_controller import UserstockController
 from qs_backend.controllers.subscriptions_controller import SubscriptionsAPI
 
 app = Flask(__name__, static_url_path='/static')
+CORS(app)
+handler = JSONExceptionHandler(app)
 
 @app.route("/qs/spec")
 # Instantiating "spec" route for Swagger API Documentation
@@ -24,8 +28,14 @@ def spec():
 
 # Instantiating SubscriptionsAPI class for all the helpers !
 subscriptionsAPI = SubscriptionsAPI()
-app.add_url_rule('/qs/subscribe',
+app.add_url_rule('/qs/subscribe/<string:user_name>',
                  view_func=subscriptionsAPI.register_qs_client)
+
+# Instantiating UserStockController class for all the helpers !
+userstockControllerAPI = UserstockController()
+app.add_url_rule('/qs/stocks/preferences/<string:user_name>',
+                 view_func=userstockControllerAPI.update_stock_preference,
+                 methods=["PUT"])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

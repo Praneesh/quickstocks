@@ -20,7 +20,7 @@ $(document).ready(function(){
                           "Honeywell International Inc.",
                           "Apple Inc.",
                           "Alphabet Inc.",
-                          "Microsoft Cooperation",
+                          "Microsoft Cooporation",
                           "Facebook Inc.",
                           "Intel Corporation",
                           "Oracle Corporation"
