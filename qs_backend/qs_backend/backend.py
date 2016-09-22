@@ -2,7 +2,7 @@
 
 #   __author__    = "Praneesh Kataru"
 #   __credits__   = []
-#   __version__   = "0.1.1"
+#   __version__   = "0.2.1"
 #   __maintainer__ = "Praneesh Kataru"
 #   __email__ = "pranuvitmsse05@gmail.com"
 #   __status__ = "Prototype"
@@ -13,24 +13,41 @@ import threading
 import time
 from qs_backend.workers.worker_fetch_stock import StockWorker
 from qs_backend.publisher.publish_stock import PublishStock
-
-# Start FetchStock Threads
-fetch_test = StockWorker()
-stock_key = 'HON'
-ft_stock_thread = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key,))
-#ft_stock_thread.daemon = True
-ft_stock_thread.start()
-
-stock_key_1 = 'AAPL'
-ft_stock_thread_1 = threading.Thread(target=fetch_test.fetch_stock_price, args=(stock_key_1,))
-#ft_stock_thread.daemon = True
-ft_stock_thread_1.start()
-
-time.sleep(5)
+from qs_backend.dal.user_stock_pref_dal import UserStockPrefDAL
 
 
-# Start PublishStock Threads
-pub_stock = PublishStock()
-pub_stock_thread = threading.Thread(target=pub_stock.start_publishing())
-#pub_stock_thread.daemon = True
-pub_stock_thread.start()
+class Backend:
+    def __init__(self):
+        pass
+
+    def start_stock_tickers(self):
+        # Fetch all the stocks that users have chosen.
+        while True:
+            user_stock_pref_dal_obj = UserStockPrefDAL()
+            stock_exception, available_stocks = user_stock_pref_dal_obj.get_all_stock_preferences()
+            for stock in available_stocks:
+                stock_key = stock
+                # Start FetchStock Threads
+                stock_worker_obj = StockWorker()
+                ft_stock_thread = threading.Thread(target=stock_worker_obj.fetch_stock_price, args=(stock_key,))
+                ft_stock_thread.daemon = True
+                ft_stock_thread.start()
+            time.sleep(60)
+
+if __name__ == '__main__':
+    backend_process = Backend()
+    # Start all the Stock Worker Threads
+    stock_ticker_thread = threading.Thread(target=backend_process.start_stock_tickers)
+    stock_ticker_thread.start()
+
+    time.sleep(5)
+    # Wait for sometime, before you start the publisher.
+    # The below makes a blocking call !
+    pub_stock = PublishStock()
+    pub_stock.start_publishing()
+
+
+
+
+
+

@@ -1,15 +1,1 @@
-[{
-	"userStocks": [{
-		"key": "HON"
-	}],
-	"userID": "praneesh"
-}, {
-	"userStocks": [{
-		"key": "INTU"
-	}, {
-		"key": "GOOG"
-	}, {
-		"key": "YHOO"
-	}],
-	"userID": "restofworld"
-}]
+[{"userID": "praneesh", "userStocks": [{"key": "HON"}, {"key": "MSFT"}]}, {"userID": "restofworld", "userStocks": [{"key": "INTU"}, {"key": "GOOG"}, {"key": "YHOO"}]}]

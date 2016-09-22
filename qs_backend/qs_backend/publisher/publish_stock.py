@@ -13,11 +13,18 @@
 from autobahn.asyncio.wamp import ApplicationSession, ApplicationRunner
 from asyncio import coroutine, sleep
 from qs_backend.queues.stock_delivery_queue import StockDeliveryQueue
+from queue import Empty
 
 
 class PublishStock:
-
     class PublishStockRunner(ApplicationSession):
+        @coroutine
+        def onDisconnect(self):
+            # Reconnect not possible today with the existing implementation
+            # Look at the workaround that is provided on the issue link below
+            # https://github.com/crossbario/autobahn-python/issues/588
+            print("Connection To Crossbar Lost. Attempting Reconnect")
+
         @coroutine
         def onJoin(self, details):
             print("WAMP + Crossbar - Publisher Session Available")
@@ -27,7 +34,7 @@ class PublishStock:
             # TO DO: Logging, Exception Handling Here !
             while True:
                 try:
-                    con_topic_to_publish = u'com.quickstocks.publisher.b6b7a9887'
+                    con_topic_to_publish = u'com.quickstocks.publisher.b6b7'
                     stock_data_from_queue = stock_d_queue.get()
                     if stock_data_from_queue is None:
                         print("Stock Delivery Queue is empty. Nothing to publish yet.")
@@ -46,7 +53,8 @@ class PublishStock:
                     finally:
                         stock_d_queue.task_done()
                         yield from sleep(1)
-
+                except Empty as queue_empty_exception:
+                    print('Stock Deliver Queue Empty Exception : {}'.format(queue_empty_exception))
                 except Exception as general_exception:
                     print('Something went wrong while de-queuing Stock Delivery Queue :{} '.format(general_exception))
 

@@ -24,7 +24,8 @@ setup(name='qs_backend',
                         'yahoo-finance >= 1.1.4',
                         'dicttoxml >= 1.7.4',
                         'flask-swagger >= 0.2.12',
-                        'jsonpickle >= 0.9.3'],
+                        'jsonpickle >= 0.9.3',
+                        'autobahn >= 0.16.0'],
       classifiers=['Development Status :: 1 Beta'])
 
 __author__ = 'Praneesh Kataru'
