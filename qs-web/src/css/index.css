@@ -3,6 +3,18 @@
 	padding-bottom: 0.05em;
 	border-bottom: 1px solid #333333;
 }
+.welcome-note{
+	position: relative;
+	top: -7px;
+	left: 0px;
+	display: inline-block;
+	margin-right: 3em;
+	font-size: 22px;
+	font-weight: 600;
+	font-family: Arial;
+	color: #BBB;
+	line-height: 18px;
+}
 .widget
  {
 	position: relative;

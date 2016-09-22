@@ -20,13 +20,16 @@ $(document).ready(function(){
                           "Honeywell International Inc.",
                           "Apple Inc.",
                           "Alphabet Inc.",
-                          "Microsoft Cooporation",
+                          "Microsoft Corporation",
                           "Facebook Inc.",
                           "Intel Corporation",
                           "Oracle Corporation"
                       ];
     $('#search-stocks').typeahead({source:stockPicks, items:4});
 
+    /*Initialize Alertify*/
+    alertify.set('notifier','position', 'top-right');
+    alertify.set('notifier','delay', 3);
 
     // Register for Google Cloud Messaging Notifications
     if ('serviceWorker' in navigator) {
@@ -81,8 +84,27 @@ $(document).ready(function(){
   });
 
   function onStockOptionSearchUpdate(){
-    alert($('#search-stocks').val());
-  }
+    var companySelected = $('#search-stocks').val();
+    // Call the Quick Stocks endpoint to update the selection in JSON
+    if(companySelected == ""){
+       alertify.warning('Please choose a company from search box.');
+       return;
+    }
+    var payloadData = new Object();
+    payloadData.stock_company = companySelected;
+    alertify.success('Updating your stock preferences.');
+    $.ajax({
+          method: "PUT",
+          url: "http://127.0.0.1:5000/qs/stocks/preferences/praneesh",
+          dataType:'json',
+          contentType:'application/json',
+          data: JSON.stringify(payloadData)
+        }).done(function( msg ) {
+            alertify.success('Stock Preferences Updated');
+        }).fail(function() {
+            alertify.error('Oops ! Could not update your stock preferences. Please try again !');
+        });
+   }
   /*
       This creates a User Picks for the user Selected Stocks
   */
@@ -98,6 +120,9 @@ $(document).ready(function(){
     /*
       THIS IS GOING TO BE A LONG LONG LONG FUNCTION.... BREAK IT !!!
     */
+
+    // Hide the welcome-note
+    $("#default-welcome-text")[0].style.display = 'none';
 
     // Step 1: Create a Widget elements
     var elmStockWidget = $(document.createElement('div'));

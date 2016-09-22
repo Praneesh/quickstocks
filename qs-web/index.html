@@ -8,6 +8,8 @@
     <link rel="manifest" href="pushservicemanifest.json">
 	  <link rel="icon" type="image/png" href="src/imgs/favicon.ico"/>
     <link href="src/css/external/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/external/alertify/alertify.min.css" />
+    <link rel="stylesheet" href="src/css/external/alertify/themes/bootstrap.min.css" />
     <link href="src/css/index.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +46,6 @@
 							<button class="btn btn-default" id="searchBtn" type="button">Go!</button>
 						</span>
 					</div>
-
 			</div>
 			<div class="col-md-1">
 			</div>
@@ -54,6 +55,7 @@
       <!-- Column to show user selected stocks -->
       <div class="col-md-9">
 				<h3 class="page-header">Your Picks</h3>
+        <span class="welcome-note" id="default-welcome-text" style="display:block"> Search, Choose, Track - Quick Stocks </span>
 				<div class="row" id="widget-rows-userpicks">
             <!--
                 ALL THE NEW USER ELEMENTS WOULD COME UP HERE
@@ -212,6 +214,7 @@
   <script src="src/js/external/bootstrap/bootstrap.min.js"></script>
   <script src="src/js/external/typeahead/typeahead.js"></script>
 	<script src="src/js/external/autobahnjs/autobahn.min.jgz"></script>
+  <script src="src/js/external/alertify/alertify.min.js"></script>
   <script src="src/js/index.js"></script>
   </body>
 </html>
