@@ -21,7 +21,7 @@ class SubscriberComponent(ApplicationSession):
     def onJoin(self, details):
         print("WAMP+Crossbar - Dispatcher ::  Subscriber Session Available")
 
-        con_topic_to_subscribe = u'com.quickstocks.publisher.b6b7a9887'
+        con_topic_to_subscribe = u'com.quickstocks.publisher.b6b7'
 
         def on_stockspacket(stocks_data):
             # Step 0: Iterate through the packet, it may have multiple interested subscribers !
