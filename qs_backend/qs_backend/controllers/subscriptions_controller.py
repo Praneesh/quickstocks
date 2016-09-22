@@ -7,9 +7,11 @@
 #   __email__ = "pranuvitmsse05@gmail.com"
 #   __status__ = "Prototype"
 
-from flask import jsonify
+from flask import jsonify, request
 from qs_backend.dal.user_subscriptions_dal import UserSubscriptionsDAL
+from qs_backend.dal.user_gcm_notifications_dal import UserGCMNotificationEndpointsDAL
 from qs_backend.exceptions.http_custom_exception_handlers import *
+
 
 class SubscriptionsAPI:
     def __init__(self):
@@ -35,3 +37,22 @@ class SubscriptionsAPI:
         if fetch_exception is not None:
             raise InternalServerException(exception_message=fetch_exception)
         return jsonify(user_subscription_dict)
+
+    def update_gcm_notification_endpoint(self):
+        """
+            Updates a push notification stream for GCM endpoints
+            ---
+            tags:
+              - Subscription
+            responses:
+              201:
+                description: Returns status
+        """
+
+        user_gcm_notif_dal_obj = UserGCMNotificationEndpointsDAL()
+        request_gcm_notif_endpoint = request.get_json()
+        if request_gcm_notif_endpoint is None:
+            raise JSONNotFoundException
+        # To Do: Update the Notification Endpoint in DB
+        return True
+

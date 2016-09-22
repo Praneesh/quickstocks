@@ -35,6 +35,14 @@ class UserStockPrefSelectTests(unittest.TestCase):
         self.assertEqual(select_exception, None)
         self.assertGreater(all_user_prefs.__len__(), 0, msg='Some records received')
 
+    def test_db_get_all_stock_preferences(self):
+        user_stock_pref_obj = UserStockPrefDAL()
+        print("Executing Test Case : Fetch All Users Stock Keys")
+        select_exception, all_stock_keys = user_stock_pref_obj.get_all_stock_preferences()
+        pprint(all_stock_keys)
+        self.assertEqual(select_exception, None)
+        self.assertGreater(all_stock_keys.__len__(), 0, msg='Some records received')
+
     def test_db_fetch_stock_pref_by_user_id(self):
         user_stock_pref_obj = UserStockPrefDAL()
         print("Executing Test Case : Fetch Stock Preferences By User ID: {}".format(self.user_id))

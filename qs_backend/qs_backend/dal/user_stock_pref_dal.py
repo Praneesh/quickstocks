@@ -27,6 +27,16 @@ class UserStockPrefDAL:
         """ Returns the stock interests of all users """
         return self.db_exception, self.user_all_prefs
 
+    def get_all_stock_preferences(self):
+        """Gets all the stocks that users are interested in.."""
+        ret_all_stock_keys = set()
+        available_user_prefs = self.user_all_prefs
+        for user_preference in available_user_prefs:
+            user_pref_stocks = user_preference["userStocks"]
+            for stockItem in user_pref_stocks:
+                ret_all_stock_keys.add(stockItem['key'])
+        return self.db_exception, ret_all_stock_keys
+
     def get_stock_preferences_by_user_id(self, user_id):
         """ Returns the stock interests of a user """
         ret_user_pref = None
@@ -64,7 +74,6 @@ class UserStockPrefDAL:
 
                 # Update the existing stock key object - check for existence of an element before updatinng
                 user_preference['userStocks'].append(user_new_stock)
-                ret_update_status = True
                 break;
         print(user_all_current_prefs)
 
@@ -72,6 +81,7 @@ class UserStockPrefDAL:
         try:
             stock_pref_json_file = open(self.user_stock_pref_db_file, "w+")
             stock_pref_json_file.write(json.dumps(user_all_current_prefs))
+            ret_update_status = True
             stock_pref_json_file.close()
         except Exception as general_exception:
             ret_update_exception = general_exception
